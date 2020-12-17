@@ -1,16 +1,24 @@
 package com.example.TopScore.DataAccess.Entities;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "user")
 public class UserEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID id;
 
     private String player;
     private Integer score;
@@ -25,7 +33,7 @@ public class UserEntity {
         this.time = time;
     }
 
-    public long GetId(Long id) {
+    public UUID getId() {
         return id;
     }
 

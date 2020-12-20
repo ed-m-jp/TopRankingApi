@@ -1,39 +1,36 @@
 package com.example.TopScore.DataAccess.Entities;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity
-@Table(name = "user")
+@Table(indexes = {
+        @Index(name = "score_index", columnList = "score"),
+        @Index(name = "time_index", columnList = "score")
+})
 public class UserEntity {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
+    @GeneratedValue
+    private Long id;
 
     private String player;
+    private String normalizedPlayer;
     private Integer score;
     private Date time;
 
     public UserEntity() {
     }
 
-    public UserEntity( String name, int score, Date time) {
+    public UserEntity(String name, String normalizedName, int score, Date time) {
         this.player = name;
+        this.normalizedPlayer = normalizedName;
         this.score = score;
         this.time = time;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
@@ -43,6 +40,14 @@ public class UserEntity {
 
     public void setPlayer(String player) {
         this.player = player;
+    }
+
+    public String getNormalizedPlayer() {
+        return normalizedPlayer;
+    }
+
+    public void setNormalizedPlayer(String normalizedPlayer) {
+        this.normalizedPlayer = normalizedPlayer;
     }
 
     public Integer getScore() {
@@ -70,7 +75,7 @@ public class UserEntity {
             return false;
 
         UserEntity user = (UserEntity) o;
-        return player == user.player &&
+        return player.equals(user.player) &&
                 Objects.equals(id, user.id);
     }
 

@@ -33,7 +33,7 @@ public class ScoreController
         Get score by score id
 
         Parameters:
-             scoreId -> The value for the user you want to look up
+             scoreId -> The value for the score you want to look up
 
         Response Code:
             200 -> return the score for this id
@@ -90,6 +90,7 @@ public class ScoreController
         delete.get();
         return ResponseEntity.noContent().build();
     }
+
 
     @GetMapping(path = "/list", produces = "application/json")
     public Page<ScoreDto> getScores(Pageable pageable) throws InterruptedException, ExecutionException

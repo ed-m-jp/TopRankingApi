@@ -53,7 +53,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler
         body.put("status", HttpStatus.UNPROCESSABLE_ENTITY);
         body.put("message", ex.getMessage());
 
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(body, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @Override

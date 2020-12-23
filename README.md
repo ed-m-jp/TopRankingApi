@@ -4,37 +4,27 @@ An Api to manage score for player
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
+Intellij Ultimate (https://www.jetbrains.com/idea/download/#section=windows)
+Gradle and Gradle Extension (installed and enabled by default)(url: https://www.jetbrains.com/help/idea/managing-plugins.html)
+Download the Project
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+Open Intellij then open project TopScore
 
-Say what the step will be
+Build Project
 
-```
-Give the example
-```
+then run : TopScoreApplication
 
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+At this point you are able to call the api on localhost (url : "http://localhost:8080")
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+To run the test right click on the test folder and select Run Tests in TopScore.Test
 
 ## API Documentation
 
@@ -159,11 +149,3 @@ Short description:
 ## Authors
 
 * **Maire Edward**
-
-
-
-
-    Instructions on how to build and run your app.
-    Instruction on how to run unit and integration tests.
-    Quick documentation of your API.
-

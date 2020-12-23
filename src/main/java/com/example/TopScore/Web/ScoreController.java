@@ -65,7 +65,7 @@ public class ScoreController
                     - id = Score id
                     - player = Player Name
                     - score = score for the record
-                    - time = time of the record
+                    - time = time of the record "dd/MM/yyyy hh:mm:ss"
 
         Response Code:
             201 -> return the url location of the created user as well as the data

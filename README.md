@@ -9,6 +9,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 Intellij Ultimate (https://www.jetbrains.com/idea/download/#section=windows)
+Spring boot (url : https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.html)
 Gradle and Gradle Extension (installed and enabled by default)(url: https://www.jetbrains.com/help/idea/managing-plugins.html)
 Download the Project
 

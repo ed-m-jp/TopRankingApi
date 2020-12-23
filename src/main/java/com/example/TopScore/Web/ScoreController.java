@@ -21,9 +21,9 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping("/score")
 public class ScoreController
 {
-    @Autowired
     private final ScoreService scoreService;
 
+    @Autowired
     public ScoreController(ScoreService scoreService)
     {
         this.scoreService = scoreService;
@@ -34,6 +34,13 @@ public class ScoreController
 
         Parameters:
              scoreId -> The value for the score you want to look up
+
+        Response:
+            ScoreDto ->
+                - id = Score id
+                - player = Player Name
+                - score = score for the record
+                - time = time of the record
 
         Response Code:
             200 -> return the score for this id
@@ -53,7 +60,12 @@ public class ScoreController
         Add a new score in the system
 
         Parameters:
-             score -> new score to add to the system
+             score -> new ScoreDto to add to the system
+                - ScoreDto ->
+                    - id = Score id
+                    - player = Player Name
+                    - score = score for the record
+                    - time = time of the record
 
         Response Code:
             201 -> return the url location of the created user as well as the data
@@ -91,7 +103,24 @@ public class ScoreController
         return ResponseEntity.noContent().build();
     }
 
+    /*
+            Get list of score with pagination
 
+            Parameters:
+                 page -> The value of the desired page
+                 size -> The desired size per page
+                 sort -> Filter on any field
+            Response:
+                Page -> A paginated list of scoreDto
+                    - ScoreDto ->
+                        - id = Score id
+                        - player = Player Name
+                        - score = score for the record
+                        - time = time of the record
+            Response Code:
+                200 -> return the page of score
+                422 -> The sort expression did not match the current object please sure on existing fields
+    */
     @GetMapping(path = "/list", produces = "application/json")
     public Page<ScoreDto> getScores(Pageable pageable) throws InterruptedException, ExecutionException
     {
@@ -101,6 +130,21 @@ public class ScoreController
         return page.get().map(ScoreMapper::ScoreToDtoMap);
     }
 
+    /*
+            Get score history for player
+
+            Parameters:
+                 player -> The player for whom we want the history
+            Response:
+                PlayerHistoryDto -> the score history for the requested player
+                    - playerHighestScore = Best score for the player
+                    - playerLowestScore = Lowest score for the player
+                    - playerScoreHistory = List of all the player's score
+                    - playerAverageScore = average score for the player
+            Response Code:
+                200 -> return the history of scores for the player
+                404 -> player not found
+    */
     @GetMapping(path = "/history/{player}", produces = "application/json")
     public ResponseEntity<PlayerHistoryDto>  getPlayerScoreHistoryByName(@PathVariable("player") String player) throws InterruptedException, ExecutionException
     {

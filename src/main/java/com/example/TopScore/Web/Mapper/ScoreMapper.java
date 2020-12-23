@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 
 public final class ScoreMapper {
 
+    //Map Dto to entity
     public static ScoreEntity ScoreToEntityMap(ScoreDto dto)
     {
         ScoreEntity entity = new ScoreEntity();
@@ -26,6 +27,7 @@ public final class ScoreMapper {
         return entity;
     }
 
+    //Map entity to dto
     public static ScoreDto ScoreToDtoMap(ScoreEntity entity)
     {
         return new ScoreDto(entity.getId(),

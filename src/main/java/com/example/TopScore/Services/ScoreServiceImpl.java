@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Comparator.comparing;
 
+//Service to manage everything related to score
 @Service
 public class ScoreServiceImpl implements ScoreService {
 
@@ -33,12 +34,14 @@ public class ScoreServiceImpl implements ScoreService {
         this.repository = repository;
     }
 
+    //Add new score in the system
     @Async
     public CompletableFuture<ScoreEntity> AddScore(ScoreEntity score)
     {
         return CompletableFuture.completedFuture(repository.save(score));
     }
 
+    //Delete a Score from the system
     @Async
     public void DeleteScoreById(long scoreId)
     {
@@ -48,12 +51,14 @@ public class ScoreServiceImpl implements ScoreService {
         repository.deleteById(scoreId);
     }
 
+    //Get score by score id
     @Async
     public CompletableFuture<ScoreEntity> getScoreById(long scoreId)
     {
         return CompletableFuture.completedFuture(repository.findById(scoreId).orElseThrow(() -> new ScoreNotFoundException(scoreId)));
     }
 
+    //Get paginated score list
     @Async
     public CompletableFuture<Page<ScoreEntity>> getScoreList(Pageable page)
     {
@@ -68,6 +73,7 @@ public class ScoreServiceImpl implements ScoreService {
         }
     }
 
+    //get score list for desired player
     @Async
     public CompletableFuture<PlayerHistoryDto> getPlayerScoreHistoryByName(@NotNull String player)
     {

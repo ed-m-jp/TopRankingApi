@@ -11,15 +11,16 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -87,7 +88,6 @@ public class ScoreServiceImplTest {
     public void GetScoreById_GivenInvalidId_ThrowScoreNotFoundException() {
         // Arrange
         long idToDelete = 1;
-        ScoreEntity entity = new ScoreEntity("test", "test".toUpperCase(), 1, new Date());
         when(scoreRepository.findById(idToDelete)).thenReturn(java.util.Optional.empty());
 
         // Act
@@ -103,8 +103,9 @@ public class ScoreServiceImplTest {
     public void GetScoreList_GivenValidPage_ReturnPage() throws ExecutionException, InterruptedException {
         // Arrange
         Pageable page = PageRequest.of(0, 10);
-        Page companies = Mockito.mock(Page.class);
-        when(scoreRepository.findAll(page)).thenReturn(companies);
+        List<ScoreEntity> scores = new ArrayList<>();
+        Page<ScoreEntity> scorePage = new PageImpl<>(scores);
+        when(scoreRepository.findAll(page)).thenReturn(scorePage);
 
         // Act
         CompletableFuture<Page<ScoreEntity>> result = scoreService.getScoreList(page);
@@ -112,7 +113,7 @@ public class ScoreServiceImplTest {
 
         // Assert
         Assertions.assertTrue(result.isDone());
-        Assertions.assertFalse(result.get().isEmpty());
+        Assertions.assertTrue(result.get().isEmpty());
     }
 
     @Test

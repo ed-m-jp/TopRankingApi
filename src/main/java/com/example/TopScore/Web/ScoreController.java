@@ -21,9 +21,9 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping("/score")
 public class ScoreController
 {
+    @Autowired
     private final ScoreService scoreService;
 
-    @Autowired
     public ScoreController(ScoreService scoreService)
     {
         this.scoreService = scoreService;
@@ -40,13 +40,13 @@ public class ScoreController
             404 -> no score found for this id
      */
     @GetMapping(path = "/{scoreId}", produces = "application/json")
-    public ScoreDto getScoreById(@PathVariable("scoreId") Long scoreId) throws InterruptedException, ExecutionException
+    public ResponseEntity<ScoreDto> getScoreById(@PathVariable("scoreId") Long scoreId) throws InterruptedException, ExecutionException
     {
         CompletableFuture<ScoreEntity> user = scoreService.getScoreById(scoreId);
 
         CompletableFuture.allOf(user).join();
 
-        return ScoreMapper.ScoreToDtoMap(user.get());
+        return ResponseEntity.ok(ScoreMapper.ScoreToDtoMap(user.get()));
     }
 
     /*
@@ -101,12 +101,12 @@ public class ScoreController
     }
 
     @GetMapping(path = "/history/{player}", produces = "application/json")
-    public PlayerHistoryDto getPlayerScoreHistoryByName(@PathVariable("player") String player) throws InterruptedException, ExecutionException
+    public ResponseEntity<PlayerHistoryDto>  getPlayerScoreHistoryByName(@PathVariable("player") String player) throws InterruptedException, ExecutionException
     {
         CompletableFuture<PlayerHistoryDto> history = scoreService.getPlayerScoreHistoryByName(player);
 
         CompletableFuture.allOf(history).join();
 
-        return history.get();
+        return ResponseEntity.ok(history.get());
     }
 }

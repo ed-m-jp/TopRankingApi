@@ -9,7 +9,7 @@ import java.util.Objects;
         @Index(name = "score_index", columnList = "score"),
         @Index(name = "time_index", columnList = "score")
 })
-public class UserEntity {
+public class ScoreEntity {
 
     @Id
     @GeneratedValue
@@ -20,10 +20,10 @@ public class UserEntity {
     private Integer score;
     private Date time;
 
-    public UserEntity() {
+    public ScoreEntity() {
     }
 
-    public UserEntity(String name, String normalizedName, int score, Date time) {
+    public ScoreEntity(String name, String normalizedName, int score, Date time) {
         this.player = name;
         this.normalizedPlayer = normalizedName;
         this.score = score;
@@ -74,7 +74,7 @@ public class UserEntity {
         if (o == null || getClass() != o.getClass())
             return false;
 
-        UserEntity user = (UserEntity) o;
+        ScoreEntity user = (ScoreEntity) o;
         return player.equals(user.player) &&
                 Objects.equals(id, user.id);
     }
@@ -86,7 +86,7 @@ public class UserEntity {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Country{");
+        final StringBuilder sb = new StringBuilder("Score{");
         sb.append("id=").append(id);
         sb.append(", player='").append(player).append('\'');
         sb.append(", score=").append(score);

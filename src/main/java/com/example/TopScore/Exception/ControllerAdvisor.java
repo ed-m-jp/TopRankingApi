@@ -18,16 +18,30 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
-public class ControllerAdvisor extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<Object> handleCityNotFoundException(
-            UserNotFoundException ex, WebRequest request) {
+public class ControllerAdvisor extends ResponseEntityExceptionHandler
+{
+    @ExceptionHandler(value = {ScoreNotFoundException.class, PlayerHistoryNotFoundException.class})
+    public ResponseEntity<Object> handleNotFoundException(
+            RuntimeException ex, WebRequest request) {
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
+        body.put("status", HttpStatus.NOT_FOUND);
         body.put("message", ex.getMessage());
 
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = {TimeFormatInvalidException.class, InvalidPageableParameterException.class})
+    public ResponseEntity<Object> HandleInvalidParameterException(
+            RuntimeException ex, WebRequest request) {
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", HttpStatus.BAD_REQUEST);
+        body.put("message", ex.getMessage());
+
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
     @Override
@@ -49,4 +63,5 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
+
 }

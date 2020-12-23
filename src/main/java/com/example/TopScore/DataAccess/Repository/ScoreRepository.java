@@ -12,8 +12,8 @@ import java.util.Optional;
 @Repository
 public interface ScoreRepository extends PagingAndSortingRepository<ScoreEntity, Long> {
 
-    @Query("SELECT p FROM ScoreEntity p WHERE p.normalizedPlayer = :normalizedPlayer")
-    Optional<List<ScoreEntity>> findRecordsByName(@Param("normalizedPlayer") String normalizedPlayer);
+    @Query("SELECT p FROM ScoreEntity p WHERE p.normalizedPlayer = upper(:player)")
+    Optional<List<ScoreEntity>> findRecordsByName(@Param("player") String player);
 }
 
 

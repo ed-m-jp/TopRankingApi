@@ -58,4 +58,18 @@ public class ScoreDto {
     public void setTime(String time) {
         this.time = time;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        ScoreDto score = (ScoreDto) o;
+        return player.equals(score.player) &&
+                time.equals(score.time) &&
+                this.score.equals(score.score);
+    }
 }

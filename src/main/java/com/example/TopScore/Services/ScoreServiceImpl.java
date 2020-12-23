@@ -63,7 +63,7 @@ public class ScoreServiceImpl implements ScoreService {
 
             return CompletableFuture.completedFuture(pageResult);
         }
-        catch(PropertyReferenceException e) {
+        catch(PropertyReferenceException | IllegalArgumentException e) {
             throw new InvalidPageableParameterException(page);
         }
     }
@@ -71,7 +71,7 @@ public class ScoreServiceImpl implements ScoreService {
     @Async
     public CompletableFuture<PlayerHistoryDto> getPlayerScoreHistoryByName(@NotNull String player)
     {
-        List<ScoreEntity> history = repository.findRecordsByName(player.toUpperCase()).orElseThrow(() -> new PlayerHistoryNotFoundException(player));
+        List<ScoreEntity> history = repository.findRecordsByName(player).orElseThrow(() -> new PlayerHistoryNotFoundException(player));
         ScoreEntity highestScore = history.stream().max(comparing(ScoreEntity::getScore)).orElse(null);
         ScoreEntity lowestScore = history.stream().min(comparing(ScoreEntity::getScore)).orElse(null);
         double totalScore = history.stream().mapToDouble(ScoreEntity::getScore).sum();

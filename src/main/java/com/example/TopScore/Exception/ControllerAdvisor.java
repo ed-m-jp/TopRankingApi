@@ -32,13 +32,25 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = {TimeFormatInvalidException.class, InvalidPageableParameterException.class})
-    public ResponseEntity<Object> HandleInvalidParameterException(
+    @ExceptionHandler(TimeFormatInvalidException.class)
+    public ResponseEntity<Object> HandleTimeFormatInvalidException(
             RuntimeException ex, WebRequest request) {
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.BAD_REQUEST);
+        body.put("message", ex.getMessage());
+
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidPageableParameterException.class)
+    public ResponseEntity<Object> HandleInvalidPageableParameterException(
+            RuntimeException ex, WebRequest request) {
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", HttpStatus.UNPROCESSABLE_ENTITY);
         body.put("message", ex.getMessage());
 
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);

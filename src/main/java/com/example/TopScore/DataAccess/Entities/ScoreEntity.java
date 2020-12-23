@@ -1,6 +1,8 @@
 package com.example.TopScore.DataAccess.Entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Objects;
 
@@ -15,8 +17,16 @@ public class ScoreEntity {
     @GeneratedValue
     private Long id;
 
+    @Column(nullable = false)
+    @Size(min=1)
     private String player;
+
+    @Column(nullable = false)
+    @Size(min=1)
     private String normalizedPlayer;
+
+    @Column(nullable = false)
+    @Min(value = 1)
     private Integer score;
     private Date time;
 
@@ -74,9 +84,9 @@ public class ScoreEntity {
         if (o == null || getClass() != o.getClass())
             return false;
 
-        ScoreEntity user = (ScoreEntity) o;
-        return player.equals(user.player) &&
-                Objects.equals(id, user.id);
+        ScoreEntity score = (ScoreEntity) o;
+        return player.equals(score.player) &&
+                Objects.equals(id, score.id);
     }
 
     @Override
@@ -86,12 +96,10 @@ public class ScoreEntity {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Score{");
-        sb.append("id=").append(id);
-        sb.append(", player='").append(player).append('\'');
-        sb.append(", score=").append(score);
-        sb.append(", time=").append(time);
-        sb.append('}');
-        return sb.toString();
+        return "Score{" + "id=" + id +
+                ", player='" + player + '\'' +
+                ", score=" + score +
+                ", time=" + time +
+                '}';
     }
 }

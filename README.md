@@ -88,20 +88,13 @@ Endpoint : DELETE "/score/{scoreId}"
 
 Short description:
 
-	Get score by score id
+	Delete score by score id
 
         Parameters:
-             scoreId -> The value for the score you want to look up
-
-        Response:
-            ScoreDto ->
-                - id = Score id
-                - player = Player Name
-                - score = score for the record
-                - time = time of the record
+             scoreId -> Score to delete id
 
         Response Code:
-            200 -> return the score for this id
+            204 -> score deleted
             404 -> no score found for this id
 ```
 

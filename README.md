@@ -38,7 +38,7 @@ Endpoint : GET "/score/{scoreId}"
 
 Short description:
 
-	Get score by score id
+    Get score by score id
 
         Parameters:
              scoreId -> The value for the score you want to look up
@@ -88,7 +88,7 @@ Endpoint : DELETE "/score/{scoreId}"
 
 Short description:
 
-	Delete score by score id
+    Delete score by score id
 
         Parameters:
              scoreId -> Score to delete id
@@ -128,7 +128,7 @@ Endpoint : GET "/score/history/{player}"
 
 Short description:
 
-	Get score history for player
+    Get score history for player
 
         Parameters:
              player -> The player for whom we want the history
